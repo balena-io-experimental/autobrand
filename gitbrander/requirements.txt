@@ -1,0 +1,13 @@
+# fastapi==0.75.2
+# pydantic==1.9.0
+# uvicorn==0.17.6
+Pillow==9.1.0
+# numpy==1.22.3
+
+# dalle_mini==0.0.6
+# flax==0.4.1
+# 
+
+# tqdm==4.62.3
+# transformers==4.19.0.dev0
+# vqgan_jax==0.0.1

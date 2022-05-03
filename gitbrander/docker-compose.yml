@@ -1,11 +1,13 @@
 version: '2.1'
 
 volumes:
-    models:
-    configs:
-    core:
-    scripts:
-    outputs:
+    # models:
+    # configs:
+    # core:
+    # scripts:
+    input:
+    output:
+
 
 services:
   dalle-core:
@@ -17,3 +19,6 @@ services:
     build: ./
     ports:
       - "80:8080"  # external/internal
+    volumes:
+      - input:/usr/src/app/input
+      - output:/usr/src/app/output
