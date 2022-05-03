@@ -1,0 +1,32 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.9-stretch
+
+ RUN echo "Installing dependencies..." && \
+    apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    curl \
+    wget \
+    zip \
+    unzip \
+    sudo
+    # pkg-config \
+    # liblzma-dev \
+    # libbz2-dev \
+    # zlib1g-dev \
+    # libssl-dev \
+    # zsh \
+    # clang
+
+WORKDIR /usr/src/app
+COPY . ./
+
+RUN ./download.sh
+# RUN python3 -m pip install --upgrade pip
+# RUN python3 -m pip install --upgrade Pillow
+RUN pip3 install -r requirements.txt
+
+ENV UDEV=on
+
+CMD ["python3","app.py"]
+

@@ -1,0 +1,19 @@
+version: '2.1'
+
+volumes:
+    models:
+    configs:
+    core:
+    scripts:
+    outputs:
+
+services:
+  dalle-core:
+    privileged: true
+    labels:
+      io.balena.features.balena-socket: '1'
+    restart: off
+    container_name: dalle-core
+    build: ./
+    ports:
+      - "80:8080"  # external/internal
