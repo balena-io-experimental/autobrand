@@ -2,7 +2,7 @@ FROM balenalib/aarch64-debian-node
 
 WORKDIR /usr/src/app
 
-RUN npm install vader-sentiment
+RUN npm install vader-sentiment sentiment
 
 COPY start.sh ./
 
