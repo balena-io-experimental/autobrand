@@ -1,0 +1,22 @@
+{
+	"input": {
+		"contract": {
+            "type": "sentiment",
+            "data": {
+                "sentiment": 0.7783,
+                "positivewords": [
+                    "secure",
+                    "matter",
+                    "quality",
+                    "attractive"
+                ],
+                "negativewords": []
+            }
+        },
+		"transformerContract": {
+            "type": "transformer",
+            "handle": "sentiment2colorset"
+        },
+        "artifactPath": "foobar"
+	}
+}

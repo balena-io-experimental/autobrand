@@ -1,9 +1,11 @@
 const Color = require('color');
 const fs = require('fs');
+const sdk = require('@balena/transformer-sdk');
 
-try {
-    // assume repo readme is at /input/sentiment.txt
-    const sentimentscore = parseFloat(fs.readFileSync('/input/sentiment.txt', 'utf8'));
+sdk.transform(sentiment2color);
+
+function sentiment2color(manifest) {
+    const sentimentscore = manifest.input.contract.data.sentiment;
     console.dir('Input sentiment: ' + sentimentscore.toString());
 
     // scale the score so we can use it to get the H component of HSL color (0 to 360 degrees)
@@ -46,16 +48,12 @@ try {
     console.log('Primary (contrast adjusted): ' + contrastAdjustedColor.hex());
     console.log('Complementary: ' + complementaryColor.hex());
 
-    // save the output
-    try {
-        fs.writeFileSync('/output/colors.txt', `${primaryColor.hex()}\n`);
-        fs.appendFile('/output/colors.txt', `${contrastAdjustedColor.hex()}\n`, function () {});
-        fs.appendFile('/output/colors.txt', `${complementaryColor.hex()}\n`, function () {});
-    // file written successfully
-    } catch (err) {
-        console.error(err);
-    }
-
-  } catch (err) {
-    console.error(err);
-  }
+    return [{ contract: {
+        type: 'colorset',
+        data: {
+          primary: primaryColor.hex(),
+          complementary: complementaryColor.hex(),
+          contrastAdjusted: contrastAdjustedColor.hex()
+        }
+      }, artifactPath: '/output' }]
+}
