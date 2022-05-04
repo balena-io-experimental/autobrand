@@ -1,0 +1,14 @@
+type: transformer
+handle: textfile2sentiment
+data:
+  inputFilter: {
+    "type": "object",
+    "properties": {
+      "type": {
+        "const": "textfile"
+      }
+    },
+    "required": [
+      "type"
+    ]
+  }

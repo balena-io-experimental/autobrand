@@ -1,22 +1,27 @@
 const fs = require('fs');
 const vader = require('vader-sentiment');
+const sdk = require('@balena/transformer-sdk');
+
 var Sentiment = require('sentiment');
 var sentiment = new Sentiment();
 
-try {
-    // assume repo readme is at /input/input.md
-    const data = fs.readFileSync('/input/input.md', 'utf8');
-    var intensity = vader.SentimentIntensityAnalyzer.polarity_scores(data);
-    var result = sentiment.analyze(data);
-    console.dir('Sentiment: ' + intensity.compound);
-    try {
-      fs.writeFileSync('/output/sentiment.txt', `${intensity.compound}`);
-      fs.writeFileSync('/output/positive.txt', `${result.positive}`);
-      fs.writeFileSync('/output/negative.txt', `${result.negative}`);
-      // file written successfully
-    } catch (err) {
-      console.error(err);
+sdk.transform(text2sentiment);
+
+async function text2sentiment(manifest) {
+
+  // assume repo readme is at /input/input.md
+  const data = fs.readFileSync(manifest.input.artifactPath, 'utf8');
+  var intensity = vader.SentimentIntensityAnalyzer.polarity_scores(data);
+  var result = sentiment.analyze(data);
+  console.dir('Sentiment: ' + intensity.compound);
+
+  return [{ contract: {
+    type: 'sentiment',
+    data: {
+      sentiment: intensity.compound,
+      positivewords: result.positive,
+      negativewords: result.negative
     }
-  } catch (err) {
-    console.error(err);
-  }
+  }, artifactPath: '/output' }]
+
+}

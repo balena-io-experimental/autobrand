@@ -1,0 +1,16 @@
+{
+  "name": "sentiment-analysis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "analyse.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@balena/transformer-sdk": "^0.3.6",
+    "sentiment": "^5.0.2",
+    "vader-sentiment": "^1.1.3"
+  }
+}
