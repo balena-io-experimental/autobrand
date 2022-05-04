@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageEnhance
 import os
 import json
 import requests
@@ -43,7 +43,10 @@ def outputTransformer(image=None):
         f.write(image)
 
     # image.save("output/logo1.png", "PNG")
-    img = Image.open(full_output_path)
+    img1 = Image.open(full_output_path)
+    # im3 = ImageEnhance.Color(im)
+    img2 = ImageEnhance.Contrast(img1).enhance(0.0)
+    img3 = ImageEnhance.Brightness(img2).enhance(2.0)
     
 
     # Convert to transparent

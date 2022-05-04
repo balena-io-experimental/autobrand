@@ -1,0 +1,17 @@
+{
+	"input": {
+		"contract": {
+            "type": "gitbrander",
+            "data": {
+                "prompt": "logo of blue and dark red autobrand", 
+                "num_images": 1
+
+            }
+        },
+		"transformerContract": {
+            "type": "transformer",
+            "handle": "gitbrander"
+        },
+        "artifactPath": "foobar"
+	}
+}
