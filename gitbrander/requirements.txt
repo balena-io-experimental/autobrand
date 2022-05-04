@@ -2,6 +2,8 @@
 # pydantic==1.9.0
 # uvicorn==0.17.6
 Pillow==9.1.0
+requests==2.22.0
+docarray
 # numpy==1.22.3
 
 # dalle_mini==0.0.6
