@@ -1,0 +1,12 @@
+{
+	"input": {
+		"contract": {
+            "type": "textfile"
+        },
+		"transformerContract": {
+            "type": "transformer",
+            "handle": "textfile2sentiment"
+        },
+		"artifactPath": "input/input.md"
+	}
+}
