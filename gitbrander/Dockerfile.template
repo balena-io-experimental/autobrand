@@ -17,5 +17,5 @@ RUN pip install -r requirements.txt
 
 RUN chmod u+x start.sh
 
-CMD ["bash", "start.sh"]
+CMD while : ; do ./start.sh; sleep ${INTERVAL=600}; done
 
