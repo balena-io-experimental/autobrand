@@ -19,8 +19,8 @@ The first step in taking text and creating a brand is to analyze it. We start by
 More details can be found [here](link to transformers README).
  
 ### Name generator
- 
-Description here.
+
+Next,  we again take the top section of your README file and strip out the stop words such as “the”, “an”, “a”, “of”, “or”, etc. and massage this through a GPT-2 AI model specifically tuned to generate project names.  The result of this process is a selection or singular name suggestion for your project.
  
 More details can be found [here](link to transformers README).
  
