@@ -97,6 +97,6 @@ def fetchColab(prompt, num_images):
     return base64.b64decode(image_list[0])
 
 if __name__ == "__main__":
-    prompt = inputTransformer('logo of cheetah face in circle')
+    prompt = inputTransformer('autobrand logo vector image')
     image_one = fetchColab(prompt, 1)
     image = outputTransformer(image_one)
