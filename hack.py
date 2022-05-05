@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-import os, json
+import os, json, shutil
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='', 
+            static_folder='assets')
 
 
 @app.route("/")
@@ -135,5 +136,16 @@ def run():
 
 
       # STEP 6 - Display the output artifacts on the page (name, logo, colors)
+      
+      # get name from name-generator
+    
+      with open('./krea-brain/artifacts/suggestion.txt') as f:
+        brand_name = f.readlines()
 
-      return redirect(url_for('index'))
+
+      # copy icon to assets folder
+      shutil.copyfile('gitbrander/output/icon.png', 'assets/icon.png')
+
+      return redirect('/?name=' +  brand_name[0])
+
+

@@ -1,8 +1,9 @@
-from PIL import Image, ImageEnhance
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 import os
 import json
 import requests
 import base64
+import cv2 
 # from docarray import Document
 
 def inputTransformer(input_text=None):
@@ -35,34 +36,35 @@ def outputTransformer(image=None):
     if not os.path.exists(output_path):
         os.makedirs(output_path)
         print("The new directory is created!", output_path)
-
-    # Create new Image
-    # if not image:
-    #     img = Image.new(mode="RGB", size=(64, 64), color = (153, 153, 255))
     with open(full_output_path, 'wb') as f:
         f.write(image)
 
-    # image.save("output/logo1.png", "PNG")
-    img1 = Image.open(full_output_path)
-    # im3 = ImageEnhance.Color(im)
-    img2 = ImageEnhance.Contrast(img1).enhance(0.0)
-    img3 = ImageEnhance.Brightness(img2).enhance(2.0)
-    
+    # im = ImageEnhance.Color(im).enhance(5.0)
+    # im = ImageOps.posterize(im, 2)
+    im = Image.open(full_output_path).convert("L")
+    # im = ImageEnhance.Brightness(im).enhance(1.2)
+    # im = ImageOps.autocontrast(im, cutoff=0, ignore=None, mask=None, preserve_tone=True)
+    im = ImageOps.autocontrast(im)
+    im = ImageEnhance.Contrast(im).enhance(5.0)
 
-    # Convert to transparent
-    rgba = img.convert("RGBA")
-    datas = rgba.getdata()
-    
+    im = ImageOps.colorize(im, black ="#cb4335", white ="#ffffff", mid="#2980b9", blackpoint=50, whitepoint=100, midpoint=75)
+    datas = im.getdata()
+
+    # Matrix = ( 1.1, 0,  0, 0, 0,   0.9, 0, 0, 0,     0, 1, 0) 
+    # im = im.convert("RGBA", MATRIX)
+
+    # Create transparency
+    im = im.convert("RGBA")
     newData = []
     for item in datas:
-        if item[0] == 255 and item[1] == 255 and item[2] == 255:  # finding white color by its RGB value
-            # storing a transparent value when we find a white color
+        if item[0] >= 200 and item[1] >= 200 and item[2] >= 200:  # findingblack color by its RGB value
             newData.append((255, 255, 255, 0))
         else:
             newData.append(item)  # other colours remain unchanged
-    
-    rgba.putdata(newData)
-    rgba.save("output/logo2.png", "PNG")
+    im.putdata(newData)
+
+    im = im.filter(ImageFilter.GaussianBlur(radius = 1))
+    im.save("output/logo9.png", "PNG")
 
 
 def setData(prompt, num_images):
@@ -77,22 +79,24 @@ def setHeaders():
         "mode": "no-cors"
     }
 
-
+# from docarray import Document
 # def fetchMega(prompt, num_images):
-#     url = 'grpc://dalle-flow.jina.ai:51005'
-#     da = Document(text=prompt).post(url, parameters={'num_images': num_images}).matches
-#     da.plot_image_sprites(fig_size=(10,10), show_index=True)
-#     payload = setData(prompt, num_images)
-#     headers = setHeaders()
-#     print(payload, 'payload')
-#     response = requests.post(url, json=payload, headers=headers)
-    
-#     jsons = json.loads(response.text)
-#     print(jsons)
-#     return jsons
+#   # run installer for this function
+#   # !pip install "docarray[common]>=0.13.5" jina
+#   server_url = 'grpc://dalle-flow.jina.ai:51005'
+#   da = Document(text=prompt).post(server_url, parameters={'num_images': num_images}).matches
+#   # da.plot_image_sprites(fig_size=(3,3), show_index=True)
+#   fav_id = 0
+#   fav = da[fav_id]
+#   diffused = fav.post(f'{server_url}/diffuse', parameters={'skip_rate': 0.5}, target_executor='diffusion').matches
+#   # diffused.plot_image_sprites(fig_size=(5,5), show_index=True)
+#   dfav_id = 0
+#   fav = diffused[dfav_id]
+#   # fav = fav.post(f'{server_url}/upscale', target_executor='upscaler')
+#   fav.display()
 
 def fetchColab(prompt, num_images):
-    url = 'https://cold-clocks-wave-35-229-140-35.loca.lt/dalle'
+    url = 'https://chubby-groups-tell-35-189-160-197.loca.lt/dalle'
     payload = setData(prompt, num_images)
     headers = setHeaders()
     response = requests.post(url, json=payload, headers=headers)
@@ -100,6 +104,6 @@ def fetchColab(prompt, num_images):
     return base64.b64decode(image_list[0])
 
 if __name__ == "__main__":
-    prompt = inputTransformer('autobrand logo vector image')
+    prompt = inputTransformer('logo Shin Peecells')
     image_one = fetchColab(prompt, 1)
     image = outputTransformer(image_one)
