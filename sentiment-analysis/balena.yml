@@ -1,11 +1,11 @@
 type: transformer
-handle: textfile2sentiment
+handle: readme2sentiment
 data:
   inputFilter: {
     "type": "object",
     "properties": {
       "type": {
-        "const": "textfile"
+        "const": "readme"
       }
     },
     "required": [

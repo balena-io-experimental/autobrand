@@ -1,22 +1,17 @@
 {
-	"input": {
-		"contract": {
+    "input": {
+        "contract": {
             "type": "sentiment",
             "data": {
-                "sentiment": 0.7783,
-                "positivewords": [
-                    "secure",
-                    "matter",
-                    "quality",
-                    "attractive"
-                ],
+                "sentiment": 0,
+                "positivewords": [],
                 "negativewords": []
             }
         },
-		"transformerContract": {
+        "transformerContract": {
             "type": "transformer",
-            "handle": "sentiment2colorset"
+            "handle": "readme2sentiment"
         },
         "artifactPath": "foobar"
-	}
+    }
 }

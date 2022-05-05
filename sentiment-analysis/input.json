@@ -1,12 +1,15 @@
 {
-	"input": {
-		"contract": {
-            "type": "textfile"
+    "input": {
+        "contract": {
+            "type": "readme",
+            "data": {
+                "content": ""
+            }
         },
-		"transformerContract": {
+        "transformerContract": {
             "type": "transformer",
-            "handle": "textfile2sentiment"
+            "handle": "readme2sentiment"
         },
-		"artifactPath": "input/input.md"
-	}
+        "artifactPath": "foobar"
+    }
 }
