@@ -3,25 +3,23 @@ import os
 import json
 import requests
 import base64
-import cv2 
 # from docarray import Document
 
 def inputTransformer(input_text=None):
-    input_path = 'input'
-    file_name = 'README.md'
-    full_path = os.path.join(input_path, file_name)
-    input_text = input_text or 'logo big green tree in circle'
-    print(full_path, 'full_path')
+    file_name = 'input.txt'
+    # full_path = os.path.join(input_path, file_name)
+    # input_text = input_text or 'logo big green tree in circle'
+    # print(full_path, 'full_path')
 
-    if not os.path.exists(input_path):
-        os.makedirs(input_path)
-        print('directory is created!', input_path)
+    # if not os.path.exists(input_path):
+    #     os.makedirs(input_path)
+    #     print('directory is created!', input_path)
 
-    with open(full_path, 'w') as f:
-        if os.path.getsize(full_path) == 0:
-            f.write(input_text)
+    # with open(file_name, 'w') as f:
+    #     if os.path.getsize(file_name) == 0:
+    #         f.write(input_text)
 
-    readme = open(full_path,'r')
+    readme = open(file_name,'r')
     readme_text = readme.read()
     readme.close()
     print(readme_text, 'readme_text')
@@ -30,7 +28,7 @@ def inputTransformer(input_text=None):
 
 def outputTransformer(image=None):
     output_path = 'output/'
-    image_name = 'logo.png'
+    image_name = 'icon.png'
     full_output_path = os.path.join(output_path, image_name)
 
     if not os.path.exists(output_path):
@@ -64,7 +62,7 @@ def outputTransformer(image=None):
     im.putdata(newData)
 
     im = im.filter(ImageFilter.GaussianBlur(radius = 1))
-    im.save("output/logo9.png", "PNG")
+    im.save("output/icon.png", "PNG")
 
 
 def setData(prompt, num_images):
@@ -104,6 +102,6 @@ def fetchColab(prompt, num_images):
     return base64.b64decode(image_list[0])
 
 if __name__ == "__main__":
-    prompt = inputTransformer('logo Shin Peecells')
+    prompt = inputTransformer()
     image_one = fetchColab(prompt, 1)
     image = outputTransformer(image_one)

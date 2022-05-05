@@ -133,14 +133,29 @@ def run():
 
 
       # STEP 5 - LOGO GENERATOR
+      print("Designing a snazzy logo...")
 
+      with open('./krea-brain/artifacts/suggestion.txt') as f:
+        brand_name = f.readlines()
+
+      os.chdir('./gitbrander')
+
+      with open('./input.txt', 'w') as f:
+        f.write('logo' + brand_name[0] + ' in a circle')
+
+      with open('./colors.json', 'w') as f:
+        f.write(json.dumps(output_colors))
+
+      os.system("./run.sh")
+
+      print("Logo done!")
+
+      os.chdir(root)
 
       # STEP 6 - Display the output artifacts on the page (name, logo, colors)
       
       # get name from name-generator
     
-      with open('./krea-brain/artifacts/suggestion.txt') as f:
-        brand_name = f.readlines()
 
 
       # copy icon to assets folder

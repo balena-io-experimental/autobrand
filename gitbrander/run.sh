@@ -2,4 +2,4 @@
 
 docker build -t gitbrander .
 
-docker run --rm -v "$(pwd)"/output:/output gitbrander
+docker run --rm -v "$(pwd)"/output:/usr/src/app/output gitbrander
