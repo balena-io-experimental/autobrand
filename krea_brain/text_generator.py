@@ -1,5 +1,12 @@
 import gpt_2_simple as gpt2
 import os
+import nltk
+
+# This stuff helps remove stop words
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
 
 checkpoint_dir="./checkpoint"
 input_artifact="./artifacts/prefix_file.txt"
@@ -8,10 +15,19 @@ model_name = '124M'
 
 # Get our text for suggestion
 f = open(input_artifact, "r")
-prefix_text = f.read()
+prefix_text_raw = f.read()
 f.close
 
+# 
 # Need to clean up text if we don't have a tranformer
+prefix_text_tokens = word_tokenize(prefix_text_raw)
+prefix_text_tokens_without_sw = [word for word in prefix_text_tokens if not word in stopwords.words()]
+
+prefix_text = (" ").join(prefix_text_tokens_without_sw)
+prefix_text = prefix_text + "::"
+
+# print("Clean text:", prefix_text)
+
 
 sess = gpt2.start_tf_sess()
 # After 3 hours of debugging I have realised that you need to put also the checkpoint_dir under generate.
