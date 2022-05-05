@@ -7,24 +7,11 @@ import base64
 
 def inputTransformer(input_text=None):
     file_name = 'input.txt'
-    # full_path = os.path.join(input_path, file_name)
-    # input_text = input_text or 'logo big green tree in circle'
-    # print(full_path, 'full_path')
-
-    # if not os.path.exists(input_path):
-    #     os.makedirs(input_path)
-    #     print('directory is created!', input_path)
-
-    # with open(file_name, 'w') as f:
-    #     if os.path.getsize(file_name) == 0:
-    #         f.write(input_text)
-
     readme = open(file_name,'r')
     readme_text = readme.read()
     readme.close()
-    print(readme_text, 'readme_text')
+    print('text: ', readme_text)
     return readme_text
-
 
 def outputTransformer(image=None):
     output_path = 'output/'
@@ -37,42 +24,44 @@ def outputTransformer(image=None):
     with open(full_output_path, 'wb') as f:
         f.write(image)
 
-    # im = ImageEnhance.Color(im).enhance(5.0)
-    # im = ImageOps.posterize(im, 2)
-    im = Image.open(full_output_path).convert("L")
-    # im = ImageEnhance.Brightness(im).enhance(1.2)
-    # im = ImageOps.autocontrast(im, cutoff=0, ignore=None, mask=None, preserve_tone=True)
+    # open image and change to black and white
+    im_original = Image.open(full_output_path)
+    im_original.save("output/icon1.png", "PNG")
+    im = im_original.convert("L")
+
+    # Flat look with nice blurred edges
     im = ImageOps.autocontrast(im)
     im = ImageEnhance.Contrast(im).enhance(5.0)
-    
-    # colors = open('colors.json')
-    colors = json.load(open('colors.json'))
-    print(colors['contrastAdjusted'], colors['primary'])
-    im = ImageOps.colorize(im, black = colors['contrastAdjusted'], white=colors['primary'], mid=colors['primary'], 
-        blackpoint=50,  whitepoint=200,  midpoint=100)
-    
+    im = im.filter(ImageFilter.GaussianBlur(radius = 1))
+    im.save("output/icon6.png", "PNG")
 
-    bigsize = (im.size[0] * 3, im.size[1] * 3)
+    # Colorize according to the colors-on-a-plate sentiment colors
+    colors = json.load(open('colors.json'))
+    im1 = ImageOps.colorize(im, black = colors['contrastAdjusted'], white=colors['primary'], mid=colors['contrastAdjusted'], 
+        blackpoint=100,  whitepoint=200,  midpoint=110)
+
+    # blend original and colorized
+    im = Image.blend(im1.convert("RGBA"), im_original.convert("RGBA"), 0.6)
+
+    # Make circle mask
+    bigsize = ((im.size[0] * 3) + 20, (im.size[1] * 3) + 20 )
     mask = Image.new('L', bigsize, 0)
     draw = ImageDraw.Draw(mask) 
     draw.ellipse((0, 0) + bigsize, fill=255)
     mask = mask.resize(im.size, resample=Image.Resampling.LANCZOS)
     im.putalpha(mask)
-    # Matrix = ( 1.1, 0,  0, 0, 0,   0.9, 0, 0, 0,     0, 1, 0) 
-    # im = im.convert("RGBA", MATRIX)
-    im = ImageOps.expand(im, border=5, fill=10)
+    im = ImageOps.expand(im, border = 20, fill = 50)
+
+    # Create transparency for outside circle
     datas = im.getdata()
-    # Create transparency
     im = im.convert("RGBA")
     newData = []
     for item in datas:
-        if item[0] >= 200 and item[1] >= 200 and item[2] >= 200:  # findingblack color by its RGB value
+        if item[0] == 255 and item[1] == 255 and item[2] == 255:  # finding white color by its RGB value
             newData.append((255, 255, 255, 0))
         else:
             newData.append(item)  # other colours remain unchanged
     im.putdata(newData)
-
-    im = im.filter(ImageFilter.GaussianBlur(radius = 1))
     im.save("output/icon.png", "PNG")
 
 
