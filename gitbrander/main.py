@@ -1,4 +1,4 @@
-from PIL import Image, ImageEnhance, ImageFilter, ImageOps
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps, ImageDraw
 import os
 import json
 import requests
@@ -44,13 +44,24 @@ def outputTransformer(image=None):
     # im = ImageOps.autocontrast(im, cutoff=0, ignore=None, mask=None, preserve_tone=True)
     im = ImageOps.autocontrast(im)
     im = ImageEnhance.Contrast(im).enhance(5.0)
+    
+    # colors = open('colors.json')
+    colors = json.load(open('colors.json'))
+    print(colors['contrastAdjusted'], colors['primary'])
+    im = ImageOps.colorize(im, black = colors['contrastAdjusted'], white=colors['primary'], mid=colors['primary'], 
+        blackpoint=50,  whitepoint=200,  midpoint=100)
+    
 
-    im = ImageOps.colorize(im, black ="#cb4335", white ="#ffffff", mid="#2980b9", blackpoint=50, whitepoint=100, midpoint=75)
-    datas = im.getdata()
-
+    bigsize = (im.size[0] * 3, im.size[1] * 3)
+    mask = Image.new('L', bigsize, 0)
+    draw = ImageDraw.Draw(mask) 
+    draw.ellipse((0, 0) + bigsize, fill=255)
+    mask = mask.resize(im.size, resample=Image.Resampling.LANCZOS)
+    im.putalpha(mask)
     # Matrix = ( 1.1, 0,  0, 0, 0,   0.9, 0, 0, 0,     0, 1, 0) 
     # im = im.convert("RGBA", MATRIX)
-
+    im = ImageOps.expand(im, border=5, fill=10)
+    datas = im.getdata()
     # Create transparency
     im = im.convert("RGBA")
     newData = []
