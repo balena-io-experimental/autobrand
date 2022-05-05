@@ -92,7 +92,7 @@ def run():
           "contract": sentiment_analysis_file['results'][0]['contract'],
           "transformerContract": {
                   "type": "transformer",
-                  "handle": "readme2sentiment"
+                  "handle": "sentiment2colors"
               },
           "artifactPath": "foobar"
         }
@@ -113,9 +113,22 @@ def run():
 
       os.chdir(root)
 
-
-
       # STEP 4 - NAME GENERATOR
+      print("Thinking up a name...")
+
+      colors_on_a_plate_file = json.load(open('./colors-on-a-plate/output/output.json'))
+      output_colors = colors_on_a_plate_file['results'][0]['contract']['data']
+
+      os.chdir('./krea-brain')
+
+      with open('./artifacts/prefix_file.txt', 'w') as f:
+        f.write(output_colors['primaryName'] + ' ' + output_colors['complementaryName'] + ' ' + output_colors['contrastAdjustedName'] + ' ' + readme_getter_file['results'][0]['contract']['data']['content'])
+
+      os.system("./run.sh")
+
+      print("Named!")
+
+      os.chdir(root)
 
 
       # STEP 5 - LOGO GENERATOR

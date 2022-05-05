@@ -56,7 +56,10 @@ function sentiment2color(manifest) {
           contrastAdjusted: contrastAdjustedColor.hex(),
           primaryRGB: primaryColor.rgb(),
           complementaryRGB: complementaryColor.rgb(),
-          contrastAdjustedRGB: contrastAdjustedColor.rgb()
+          contrastAdjustedRGB: contrastAdjustedColor.rgb(),
+          primaryName: primaryColor.keyword(),
+          complementaryName: complementaryColor.keyword(),
+          contrastAdjustedName: contrastAdjustedColor.keyword()
         }
       }, artifactPath: '/output' }]
 }
