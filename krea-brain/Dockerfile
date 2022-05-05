@@ -17,7 +17,6 @@ COPY ./meta_context.csv .
 
 COPY ./*.py .
 COPY ./models ./models
-COPY ./artifacts ./artifacts
 COPY ./checkpoint ./checkpoint
  
 COPY ./*.sh .
