@@ -13,6 +13,7 @@ def run():
     if request.method == 'POST':
       repo = request.form['repo_url']
 
+      # STEP 1 - README-GETTER
       # write input.json to readme-getter 
 
       readme_getter_input_contract_data = {
@@ -48,16 +49,25 @@ def run():
 
       os.chdir(root)
 
+      # STEP 2 - SENTIMENT-ANALYSIS
+
       # get output.json from readme-getter and feed to sentiment-analysis
 
       readme_getter_file = json.load(open('./readme-getter/output/output.json'))
 
-      readme_getter_contract = readme_getter_file['results'][0]['contract']
+      sentiment_analysis_input_contract_data = {
+        "input": {
+          "contract": readme_getter_file['results'][0]['contract'],
+          "transformerContract": {
+                  "type": "transformer",
+                  "handle": "readme2sentiment"
+              },
+          "artifactPath": "foobar"
+        }
+      }
 
-      # write readme text 
-
-      with open('./sentiment-analysis/input/input.md', 'w') as f:
-        f.write(readme_getter_contract['data']['text'])
+      with open('./sentiment-analysis/input.json', 'w') as f:
+        f.write(json.dumps(sentiment_analysis_input_contract_data))
 
       # start sentiment-analysis
       print("Executing sentiment analysis ...")
@@ -70,5 +80,47 @@ def run():
       print("sentiment analysis done ...")
 
       os.chdir(root)
+
+      # STEP 3 - COLORS-ON-A-PLATE
+
+      # get output.json from sentiment-analysis and feed to colors-on-a-plate
+
+      sentiment_analysis_file = json.load(open('./sentiment-analysis/output/output.json'))
+
+      colors_on_a_plate_input_contract_data = {
+        "input": {
+          "contract": sentiment_analysis_file['results'][0]['contract'],
+          "transformerContract": {
+                  "type": "transformer",
+                  "handle": "readme2sentiment"
+              },
+          "artifactPath": "foobar"
+        }
+      }
+
+      with open('./colors-on-a-plate/input.json', 'w') as f:
+        f.write(json.dumps(colors_on_a_plate_input_contract_data))
+
+      # start colors-on-a-plate
+      print("Serving up colors on a plate ...")
+
+      # change to transformer directory so docker runs in proper context
+      os.chdir('./colors-on-a-plate')
+
+      os.system("./run.sh")
+
+      print("Colors served ...")
+
+      os.chdir(root)
+
+
+
+      # STEP 4 - NAME GENERATOR
+
+
+      # STEP 5 - LOGO GENERATOR
+
+
+      # STEP 6 - Display the output artifacts on the page (name, logo, colors)
 
       return redirect(url_for('index'))

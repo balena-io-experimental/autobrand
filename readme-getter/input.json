@@ -1,15 +1,15 @@
 {
-	"input": {
-		"contract": {
+    "input": {
+        "contract": {
             "type": "repourl",
             "data": {
-                "url": "https://raw.githubusercontent.com/balena-io-playground/autobrand/main/README.md"
+                "url": ""
             }
         },
-		"transformerContract": {
+        "transformerContract": {
             "type": "transformer",
             "handle": "repourl2readme"
         },
         "artifactPath": "foobar"
-	}
+    }
 }

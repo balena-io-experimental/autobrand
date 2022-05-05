@@ -8,11 +8,8 @@ var sentiment = new Sentiment();
 sdk.transform(text2sentiment);
 
 async function text2sentiment(manifest) {
-
-  // assume repo readme is at /input/input.md
-  const data = fs.readFileSync(manifest.input.artifactPath, 'utf8');
-  var intensity = vader.SentimentIntensityAnalyzer.polarity_scores(data);
-  var result = sentiment.analyze(data);
+  var intensity = vader.SentimentIntensityAnalyzer.polarity_scores(manifest.input.contract.data.content);
+  var result = sentiment.analyze(manifest.input.contract.data.content);
   console.dir('Sentiment: ' + intensity.compound);
 
   return [{ contract: {

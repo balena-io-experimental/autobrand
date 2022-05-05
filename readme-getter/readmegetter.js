@@ -10,11 +10,12 @@ async function repourl2readme(manifest) {
 
     const response = await fetch(repourl);
     const body = await response.text();
+    var fields = body.split('\n#');
 
     return [{ contract: {
         type: 'readme',
         data: {
-          text: body,
+          content: fields[0]+fields[1],
         }
       }, artifactPath: '/output' }]
 

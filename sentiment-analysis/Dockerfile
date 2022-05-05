@@ -8,7 +8,6 @@ RUN npm install
 COPY start.sh ./
 COPY input.json input.json
 COPY analyse.js ./
-COPY input input
 
 ENV INPUT="/usr/src/app/input.json"
 ENV OUTPUT="/output/output.json"
