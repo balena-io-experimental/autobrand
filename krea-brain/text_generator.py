@@ -10,7 +10,7 @@ from nltk.tokenize import word_tokenize
 
 checkpoint_dir="./checkpoint"
 input_artifact="./artifacts/prefix_file.txt"
-output_artifact="./artifacts/prefix_and_suggestion.txt"
+output_artifact="./artifacts/suggestion.txt"
 model_name = '124M'
 
 # Get our text for suggestion
