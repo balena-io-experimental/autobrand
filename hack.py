@@ -161,6 +161,7 @@ def run():
       # copy icon to assets folder
       shutil.copyfile('gitbrander/output/icon.png', 'assets/icon.png')
 
-      return redirect('/?name=' +  brand_name[0])
+          # return redirect('/?name=' +  brand_name[0] + '&primary=' + output_colors['primaryName'])
+      return redirect('/?name={}&primary={}&complementary={}&contrastAdjusted={}'.format(brand_name[0],output_colors['primary'].replace("#", ""),output_colors['complementary'].replace("#", ""),output_colors['contrastAdjusted'].replace("#", "")))
 
 
