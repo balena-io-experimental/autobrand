@@ -72,14 +72,25 @@
   </header>
   <main>
 
-    <div>
+    <div class="request">
       <form action="/run" method="post" onsubmit="spin()">
 
-          <label for="repo">Url:</label>
-          <input type="url" id="repo" name="repo_url">
+        <label for="repo">Url:</label>
+        <input type="url" id="repo" name="repo_url">
         <button type="submit">Submit</button>
 
       </form>
+    </div>
+
+    <div id="output" style="display: none;">
+
+      <h2>
+        <span>🎉 Brand Name :  </span>
+        <span id="brand_name"></span>
+      </h2>
+
+      <h2>Logo</h2>
+      <img id="icon" src="">
     </div>
   </main>
   <script>
@@ -87,7 +98,19 @@
       console.log("spin")
       document.getElementById('cover-spin').style.display = "block"
       // event.preventDefault();
-}
+    }
+    window.onload = (e) => {
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
+      // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+      let brand_name = params.name; // "some_value"
+      if(brand_name){
+        document.getElementById('output').style.display = "block";
+        document.getElementById('brand_name').innerHTML = brand_name;
+        document.getElementById('icon').src = "icon.png"
+      }
+    }
   </script>
 </body>
 
