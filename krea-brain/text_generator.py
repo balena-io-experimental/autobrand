@@ -43,7 +43,7 @@ results = gpt2.generate(sess, model_name=model_name,
               run_name='run1', checkpoint_dir=checkpoint_dir,
               return_as_list=True,
               temperature=4, include_prefix=True, prefix=prefix_text,
-              truncate='<|endoftext|>', nsamples=1, batch_size=1, length=3
+              truncate='<|endoftext|>', nsamples=1, batch_size=1, length=2
               )[0]
 
 #print("=====================================")
