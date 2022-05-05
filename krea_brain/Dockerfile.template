@@ -6,12 +6,15 @@ WORKDIR /usr/src/app
 COPY ./requirements.txt .
 COPY ./krea_brain .
 
+COPY ./start.sh .
+RUN chmod w+x ./start.sh
+
 RUN pip install -r ./requirements.txt
 
-
+# CMD ["sh", "./start.sh"]
 #
 # basic command
 # CMD ["python3", "./krea_brain/text_generator.py"]
 #
 # sleeping for dev work
-CMD ["sleep", "infinity"] 
+# CMD ["sleep", "infinity"] 
