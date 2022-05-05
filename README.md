@@ -35,7 +35,9 @@ More details can be found [here](link to transformers README).
 ### Icon generator
  
 This transformer takes the name generator text and the sentiment color generator values as input and generates images using public datasets of encoded text-image pairs. It is using the datasets [VQGAN-f16-16384](https://huggingface.co/dalle-mini/vqgan_imagenet_f16_16384) for encoding/decoding images and [DALL·E mini](https://huggingface.co/flax-community/dalle-mini) for generating images from a text prompt. Dalle-mini is a pretrained model based off [Openai's DALL-E](https://openai.com/blog/dall-e/)
- 
+
+[![Open backend In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1JXL17AycxEkLHQz0vUzfScidVURfeyhD?usp=sharing)
+
 More details can be found [here](link to transformers README).
  
 ### Logo builder (In development)
