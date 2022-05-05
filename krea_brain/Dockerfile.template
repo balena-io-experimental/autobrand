@@ -1,0 +1,17 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-ubuntu-python:3.7-bionic-build
+
+# Create a working directory
+WORKDIR /usr/src/app
+
+COPY ./requirements.txt .
+COPY ./krea_brain .
+
+RUN pip install -r ./requirements.txt
+
+
+#
+# basic command
+# CMD ["python3", "./krea_brain/text_generator.py"]
+#
+# sleeping for dev work
+CMD ["sleep", "infinity"] 
