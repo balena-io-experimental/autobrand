@@ -10,7 +10,7 @@ from nltk.tokenize import word_tokenize
 
 checkpoint_dir="./checkpoint"
 input_artifact="./artifacts/prefix_file.txt"
-output_artifact="./artifacts/prefix_and_suggestion.txt"
+output_artifact="./artifacts/suggestion.txt"
 model_name = '124M'
 
 # Get our text for suggestion
@@ -39,17 +39,22 @@ gpt2.load_gpt2(sess,
               model_dir='models',
               )
 
-single_name = gpt2.generate(sess, model_name=model_name,
+results = gpt2.generate(sess, model_name=model_name,
               run_name='run1', checkpoint_dir=checkpoint_dir,
               return_as_list=True,
               temperature=4, include_prefix=True, prefix=prefix_text,
               truncate='<|endoftext|>', nsamples=1, batch_size=1, length=3
               )[0]
 
-print(single_name)
+#print("=====================================")
+#print(results)
+#print("=====================================")
+results_split = results.split("::", 1)
+#print(results_split[1])
+#print("=================================")
 
 if os.path.exists(output_artifact):
     os.remove(output_artifact)
 f = open(output_artifact, "w")
-f.write(single_name)
+f.write(results_split[1])
 f.close()
