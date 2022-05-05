@@ -59,6 +59,22 @@
       -webkit-animation: spin 0.8s linear infinite;
       animation: spin 0.8s linear infinite;
     }
+
+    .color_blocks {
+      display: flex;
+      gap: 50px;
+    }
+
+    .block-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .block {
+      width: 75px;
+      height: 75px;
+    }
   </style>
 </head>
 
@@ -85,12 +101,36 @@
     <div id="output" style="display: none;">
 
       <h2>
-        <span>🎉 Brand Name :  </span>
+        <span>🎉 Brand Name : </span>
         <span id="brand_name"></span>
       </h2>
 
+      <h2>
+        <span>🎨 Colors</span>
+      </h2>
+
+      <div class="color_blocks">
+
+        <section class="block-wrapper">
+          <div class="block" id="primary"></div>
+          <code id="primary_text"></code>
+        </section>
+
+        <section class="block-wrapper">
+
+          <div class="block" id="complementary"></div>
+          <code id="complementary_text"></code>
+        </section>
+        <section class="block-wrapper">
+          <div class="block" id="contrastAdjusted"></div>
+          <code id="contrastAdjusted_text"></code>
+        </section>
+      </div>
+
       <h2>Logo</h2>
       <img id="icon" src="">
+
+
     </div>
   </main>
   <script>
@@ -105,10 +145,27 @@
       });
       // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
       let brand_name = params.name; // "some_value"
-      if(brand_name){
+      if (brand_name) {
         document.getElementById('output').style.display = "block";
         document.getElementById('brand_name').innerHTML = brand_name;
         document.getElementById('icon').src = "icon.png"
+      }
+
+      let primary = params.primary;
+      let complementary = params.complementary;
+      let contrastAdjusted = params.contrastAdjusted;
+
+      if (primary) {
+        document.getElementById('primary').style.backgroundColor = primary
+        document.getElementById('primary_text').innerHTML = '#' + primary
+      }
+      if (complementary) {
+        document.getElementById('complementary').style.backgroundColor = complementary
+        document.getElementById('complementary_text').innerHTML = '#' + complementary
+      }
+      if (contrastAdjusted) {
+        document.getElementById('contrastAdjusted').style.backgroundColor = contrastAdjusted
+        document.getElementById('contrastAdjusted_text').innerHTML = '#' + contrastAdjusted
       }
     }
   </script>
