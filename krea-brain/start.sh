@@ -1,4 +1,4 @@
 #!/bin/bash 
 
-python3 test_generator.py
+python3 text_generator.py
 

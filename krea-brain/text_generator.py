@@ -46,7 +46,7 @@ single_name = gpt2.generate(sess, model_name=model_name,
               truncate='<|endoftext|>', nsamples=1, batch_size=1, length=3
               )[0]
 
-# print(single_name)
+print(single_name)
 
 if os.path.exists(output_artifact):
     os.remove(output_artifact)
