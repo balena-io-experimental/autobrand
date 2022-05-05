@@ -1,0 +1,1 @@
+After training checkpoints will be stored here alone with rebuilt models 
