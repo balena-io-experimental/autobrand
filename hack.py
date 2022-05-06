@@ -169,6 +169,6 @@ def run():
       project = repoSanitized[4]
 
           # return redirect('/?name=' +  brand_name[0] + '&primary=' + output_colors['primaryName'])
-      return redirect('/?name={}&primary={}&complementary={}&contrastAdjusted={}&repo={}/{}'.format(brand_name[0],output_colors['primary'].replace("#", ""),output_colors['complementary'].replace("#", ""),output_colors['contrastAdjusted'].replace("#", "")),org,project)
+      return redirect('/?name={}&primary={}&complementary={}&contrastAdjusted={}&repo={}/{}'.format(brand_name[0],output_colors['primary'].replace("#", ""),output_colors['complementary'].replace("#", ""),output_colors['contrastAdjusted'].replace("#", ""),org,project))
 
 
