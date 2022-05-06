@@ -65,3 +65,16 @@ You now ask questions of it, what is your purpose? how do you see the world? wha
 Even better, you can ask questions on behalf of your users. Would they find you useful, would you appeal to them? If yes, then great you're on the right track! If not, you may have discovered some fundamental challenges your idea faces, or perhaps just a change of positioning to your user.
  
 We'll be writing more about Brand First Development in the future, but for now if you have any questions please get in touch.
+
+
+## How to run
+
+Run the DALL-E backend using Google Colab
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/saharmor/dalle-playground/blob/main/backend/dalle_playground_backend.ipynb)
+
+Build and run all the containers
+
+```
+FLASK_APP=hack FLASK_ENV=production flask run --host 0.0.0.0 --port 3000
+```
