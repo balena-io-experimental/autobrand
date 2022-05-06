@@ -37,8 +37,10 @@ def outputTransformer(image=None):
 
     # Colorize according to the colors-on-a-plate sentiment colors
     colors = json.load(open('colors.json'))
+    # im1 = ImageOps.colorize(im, black = colors['contrastAdjusted'], white=colors['primary'], mid=colors['contrastAdjusted'], 
+        # blackpoint=50,  whitepoint=200,  midpoint=100)
     im1 = ImageOps.colorize(im, black = colors['contrastAdjusted'], white=colors['primary'], mid=colors['contrastAdjusted'], 
-        blackpoint=100,  whitepoint=200,  midpoint=110)
+        blackpoint=50,  whitepoint=150,  midpoint=100)
 
     # blend original and colorized
     im = Image.blend(im1.convert("RGBA"), im_original.convert("RGBA"), 0.6)
