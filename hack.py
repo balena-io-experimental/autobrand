@@ -143,7 +143,7 @@ def run():
       os.chdir('./gitbrander')
 
       with open('./input.txt', 'w') as f:
-        f.write('logo' + brand_name[0] + ' in a circle')
+        f.write('logo' + brand_name[0])
 
       with open('./colors.json', 'w') as f:
         f.write(json.dumps(output_colors))
