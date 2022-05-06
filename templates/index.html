@@ -101,6 +101,10 @@
     <div id="output" style="display: none;">
 
       <h2>
+        <span>🎉 Repo : </span>
+        <code id="repoName"></code>
+      </h2>
+      <h2>
         <span>🎉 Brand Name : </span>
         <span id="brand_name"></span>
       </h2>
@@ -137,7 +141,7 @@
     function spin(event) {
       console.log("spin")
       document.getElementById('cover-spin').style.display = "block"
-      // event.preventDefault();
+      
     }
     window.onload = (e) => {
       const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -154,6 +158,9 @@
       let primary = params.primary;
       let complementary = params.complementary;
       let contrastAdjusted = params.contrastAdjusted;
+      let repo = params.repo;
+
+      console.log(repo)
 
       if (primary) {
         document.getElementById('primary').style.backgroundColor = primary
@@ -166,6 +173,9 @@
       if (contrastAdjusted) {
         document.getElementById('contrastAdjusted').style.backgroundColor = contrastAdjusted
         document.getElementById('contrastAdjusted_text').innerHTML = '#' + contrastAdjusted
+      }
+      if (repo) {
+        document.getElementById('repoName').innerHTML = repo
       }
     }
   </script>
