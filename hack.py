@@ -14,6 +14,8 @@ def run():
     if request.method == 'POST':
       repo = request.form['repo_url']
 
+
+
       # STEP 1 - README-GETTER
       # write input.json to readme-getter 
 
@@ -161,7 +163,12 @@ def run():
       # copy icon to assets folder
       shutil.copyfile('gitbrander/output/icon.png', 'assets/icon.png')
 
+      repoSanitized = repo.split('/')
+
+      org = repoSanitized[3]
+      project = repoSanitized[4]
+
           # return redirect('/?name=' +  brand_name[0] + '&primary=' + output_colors['primaryName'])
-      return redirect('/?name={}&primary={}&complementary={}&contrastAdjusted={}'.format(brand_name[0],output_colors['primary'].replace("#", ""),output_colors['complementary'].replace("#", ""),output_colors['contrastAdjusted'].replace("#", "")))
+      return redirect('/?name={}&primary={}&complementary={}&contrastAdjusted={}&repo={}/{}'.format(brand_name[0],output_colors['primary'].replace("#", ""),output_colors['complementary'].replace("#", ""),output_colors['contrastAdjusted'].replace("#", ""),org,project))
 
 
