@@ -37,13 +37,11 @@ def outputTransformer(image=None):
 
     # Colorize according to the colors-on-a-plate sentiment colors
     colors = json.load(open('colors.json'))
-    # im1 = ImageOps.colorize(im, black = colors['contrastAdjusted'], white=colors['primary'], mid=colors['contrastAdjusted'], 
-        # blackpoint=50,  whitepoint=200,  midpoint=100)
-    im1 = ImageOps.colorize(im, black = colors['contrastAdjusted'], white=colors['primary'], mid=colors['contrastAdjusted'], 
-        blackpoint=50,  whitepoint=150,  midpoint=100)
+    im = ImageOps.colorize(im, black = colors['contrastAdjusted'], white=colors['primary'], mid=colors['contrastAdjusted'], 
+        blackpoint=50,  whitepoint=200,  midpoint=100)
 
     # blend original and colorized
-    im = Image.blend(im1.convert("RGBA"), im_original.convert("RGBA"), 0.6)
+    im = Image.blend(im.convert("RGBA"), im_original.convert("RGBA"), 0.6)
 
     # Make circle mask
     bigsize = ((im.size[0] * 3) + 20, (im.size[1] * 3) + 20 )
@@ -79,10 +77,16 @@ def setHeaders():
         "mode": "no-cors"
     }
 
+#############################################
+# This fetchImage works but takes longer to create logo! 
+# The logos look better than dalle-mini because its using dalle-mega!
+# run installer first when using this function
+# !pip install "docarray[common]>=0.13.5" jina
+# Put this import at the top of the file
 # from docarray import Document
-# def fetchMega(prompt, num_images):
-#   # run installer for this function
-#   # !pip install "docarray[common]>=0.13.5" jina
+#############################################
+
+# def fetchImage(prompt, num_images):
 #   server_url = 'grpc://dalle-flow.jina.ai:51005'
 #   da = Document(text=prompt).post(server_url, parameters={'num_images': num_images}).matches
 #   # da.plot_image_sprites(fig_size=(3,3), show_index=True)
@@ -95,7 +99,14 @@ def setHeaders():
 #   # fav = fav.post(f'{server_url}/upscale', target_executor='upscaler')
 #   fav.display()
 
-def fetchColab(prompt, num_images):
+#############################################
+# You need to run google colab for this function
+# https://colab.research.google.com/github/saharmor/dalle-playground/blob/main/backend/dalle_playground_backend.ipynb
+# This is using dalle-mini!
+# change the url to your colab url
+#############################################
+
+def fetchImage(prompt, num_images):
     url = 'https://crazy-ideas-write-35-227-84-117.loca.lt/dalle'
     payload = setData(prompt, num_images)
     headers = setHeaders()
@@ -105,5 +116,5 @@ def fetchColab(prompt, num_images):
 
 if __name__ == "__main__":
     prompt = inputTransformer()
-    image_one = fetchColab(prompt, 1)
+    image_one = fetchImage(prompt, 1)
     image = outputTransformer(image_one)

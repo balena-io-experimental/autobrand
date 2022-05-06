@@ -69,11 +69,15 @@ We'll be writing more about Brand First Development in the future, but for now i
 
 ## How to run
 
-Run the DALL-E backend using Google Colab
+1. Run the DALL-E backend using Google Colab
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/saharmor/dalle-playground/blob/main/backend/dalle_playground_backend.ipynb)
 
-Build and run all the containers
+2. Add the backend url for the logo generator
+
+Copy the colab URL (something like https://crazy-ideas-write-35-227-84-117.loca.lt) to fetchImage function around line 110 in gitbrander/main.py
+
+3. Build and run all the containers
 
 ```
 FLASK_APP=hack FLASK_ENV=production flask run --host 0.0.0.0 --port 3000
