@@ -94,7 +94,7 @@ def setHeaders():
 #   fav.display()
 
 def fetchColab(prompt, num_images):
-    url = 'https://chubby-groups-tell-35-189-160-197.loca.lt/dalle'
+    url = 'https://crazy-ideas-write-35-227-84-117.loca.lt/dalle'
     payload = setData(prompt, num_images)
     headers = setHeaders()
     response = requests.post(url, json=payload, headers=headers)
